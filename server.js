@@ -12,9 +12,10 @@ app.use(cors({origin: process.env.CORS_ORIGIN}));
 const PORT = process.env.PORT || 3000;
 
 app.post('/send', (req, res) => {
+	console.log(`POST request from: ${req.get('origin')}`);
 	emailer.sendEmail(req.body)
 	.then((response) => res.send(response))
 	.catch((error) => res.send(error.message));
 });
 
-app.listen(PORT);
+app.listen(PORT, () => console.log(`Listening on PORT: ${ PORT }`));
