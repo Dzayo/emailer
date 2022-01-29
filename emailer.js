@@ -20,15 +20,18 @@ const sendEmail = async (body) => {
 	// console.log(body);
 	const { name, email, subject, message } = body;
 	if (name && email && subject && message) {
-		const contentHtml = `
-		<h1>Mensaje recibido del Portfolio</h1>
-		<ul>
-			<li>Nombre: ${name}</li>
-			<li>Email: ${email}</li>
-		</ul>
-		<p>${message}</p>`
-
 		try {
+			name = name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+			email = email.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+			message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+			const contentHtml = `
+			<h1>Mensaje recibido del Portfolio</h1>
+			<ul>
+				<li>Nombre: ${name}</li>
+				<li>Email: ${email}</li>
+			</ul>
+			<p style="white-space: pre-wrap">${message}</p>`
+
 			const accessToken = await oAuth2Client.getAccessToken();
 
 			const transport = nodemailer.createTransport({
