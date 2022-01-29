@@ -18,7 +18,7 @@ oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
 const sendEmail = async (body) => {
 	// console.log(body);
-	const { name, email, subject, message } = body;
+	let { name, email, subject, message } = body;
 	if (name && email && subject && message) {
 		try {
 			name = name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
